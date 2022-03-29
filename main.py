@@ -43,17 +43,17 @@ def parse_data(file):
 
 
 def k_means_clustering(data, k, epochs):
-
     # Initialize the centroids
     indices = np.random.choice(data.shape[0], k)
     centroids = data[indices, :]
 
+    # Assign each point to the closest centroid
+    distance = np.full(data.shape[0], np.inf)
+    # Store the distance to the closest centroid
+    closest = np.zeros_like(distance)
+
     for i in range(epochs):
-        # Assign each point to the closest centroid
-        # Store the distance to the closest centroid
-        distance = np.full(data.shape[0], np.inf)
         # Store the index of the closest centroid
-        closest = np.zeros_like(distance)
         for index, point in enumerate(centroids):
             # Compute the distance to each centroid
             cur_dis = np.sqrt(np.sum((data-point)**2, axis=1))
@@ -65,8 +65,12 @@ def k_means_clustering(data, k, epochs):
         # Move the centroids
         for index in range(k):
             cluster_points = closest == index  # Points closer to this centroid
-            centroids[index] = data[cluster_points].mean(
-                axis=0)  # Update centroid using mean of points
+            # Update centroid using mean of points
+            if (data[cluster_points].size > 0):
+                centroids[index] = data[cluster_points].mean(axis=0)
+            else:
+                print('new')
+                centroids[index] = data[np.random.choice(data.shape[0])]
 
     return centroids
 
@@ -85,11 +89,12 @@ def main():
     args = parse_args()
     data = parse_data(args.image)
     means = k_means_clustering(data, args.k, args.epochs)
-    print(means)
+    print('Colour palette values:')
+    for colour in means:
+        print((colour*255).astype(np.uint8))
     plot(means)
-    # import pdb
-    # pdb.set_trace()
 
 
 if __name__ == '__main__':
+    np.set_printoptions(suppress=True, precision=0)
     main()
