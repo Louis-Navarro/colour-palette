@@ -4,6 +4,12 @@ This is a tool that allows the user to create a colour palette from a source ima
 
 ## How to install
 
+1. Clone the repository using `git clone https://github.com/Louis-Navarro/colour-palette` or download the ZIP file. Then, open a terminal in the directory.
+
+2. Download the required packages by executing `pip install -r requirements` or `python -m pip install -r requirements`.
+
+3. Done! To use the tool, read the documentation below.
+
 ## Usage
 
 ```
