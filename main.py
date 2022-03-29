@@ -25,11 +25,11 @@ def parse_args():
     parser = argparse.ArgumentParser(
         description='Tool to create a colour palette from a given image')
     parser.add_argument('image', type=argparse.FileType(
-        'r'), help='Name of the image to create a colour palette from')
+        'r'), help='Name of the image to create a colour palette from (required)')
     parser.add_argument(
-        '-k', type=int, help='Number of colour to put in the palette', default=3)
+        '-k', type=int, help='Number of colour to put in the palette (default: 3)', default=3)
     parser.add_argument(
-        '-e', '--epochs', type=int, help='Number of iterations to fit the palette', default=20)
+        '-e', '--epochs', type=int, help='Number of iterations to fit the palette (default: 20)', default=20)
     parser.add_argument('-v', '--version', action='version', version='1.0.0')
 
     return parser.parse_args()
